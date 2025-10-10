@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: If you use this software, please cite both the article from preferred-citation and the software itself.
+authors:
+  - family-names: Amaral
+    given-names: João
+  - family-names: Figueiredo
+    given-names: Andreia
+  - family-names: Rito
+    given-names: Pedro
+  - family-names: Sargento
+    given-names: Susana
+title: "Cooperative V2X Communications and Sensing for Autonomous Mobility"
+conference:
+  name: "2025 IEEE 3rd International Conference on Mobility, Operations, Services and Technologies (MOST)"
+date-released: 2025
+doi: 10.1109/MOST65065.2025.00033
+pages: 229-240

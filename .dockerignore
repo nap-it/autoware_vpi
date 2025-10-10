@@ -1,0 +1,8 @@
+**/.vscode
+**/build
+**/fastdds-cpp-wrapper
+**/paho-mqtt-cpp-wrapper
+**/rapidjson
+**/spdlog
+**/log
+**/tier4_external_api_msgs

@@ -1,0 +1,16 @@
+services:
+  autoware_vpi:
+    image: autoware_vpi:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autoware_vpi
+    volumes:
+      - ./config.ini:/pose-converter/config.ini
+      - ./config.ini:/objects-converter/config.ini
+      - ./config.ini:/braking-service/config.ini
+      - ./start_all.sh:/start_all.sh
+    network_mode: host
+    ipc: host
+    command: ["/bin/bash", "-c" , "/start_all.sh"]
+    tty: true

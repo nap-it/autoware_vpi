@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypeid="pf3"?>
+<package format="3">
+  <name>braking_service</name>
+  <version>1.0.0</version>
+  <description>The braking_service for Autoware VPI</description>
+  <maintainer email="jp.amaral@av.it.pt">NAP</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- Build dependencies -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>tier4_external_api_msgs</build_depend>
+  <build_depend>fastcdr</build_depend>
+  <build_depend>fastrtps</build_depend>
+
+  <!-- Execution dependencies -->
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>tier4_external_api_msgs</exec_depend>
+  <exec_depend>fastcdr</exec_depend>
+  <exec_depend>fastrtps</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
