@@ -1,14 +1,15 @@
 # Overview
-The  **Vehicle Programming Interface (VPI)** simplifies communication between high-level applications and services and the vehicle’s internal frameworks of both vehicle types without needing the detailed knowledge of the Autoware's internal software stack.
+This project implements a **Vehicle Programming Interface (VPI)** that connects Autoware's ROS topics to external systems such as MQTT, DDS, and Zenoh, enabling seamless data exchange and V2X messaging without requiring deep knowledge of Autoware's internal stack.
 
-For the environments that utilize the *Autoware* autonomous mobility framework, the **VPI** plays an important role in exposing all relevant information about the vehicle’s perception and control stack through DDS and MQTT: 
+VPIs are designed to manage various aspects of vehicle hardware, data, computation, services, and system management for autonomous vehicles. They were first introduced in Wu BF, Zhong R, Wang Y, et al. VPI: Vehicle Programming Interface for Vehicle Computing. Journal of Computer Science and Technology 39(1): 22–44, Jan. 2024. DOI: https://10.1007/s11390-024-4035-2.
 
-- This includes gathering detailed status updates on the **vehicle’s internal state**, such as position, speed and **detected objects**, and making this information available for use by external systems. 
-- At the same time, the VPI allows **external commands** to influence the vehicle’s behavior by **modifying the control stack**, ensuring that real-time data from external sources can be processed and acted upon.
+This VPI enables:
+- Gathering detailed status updates on the **vehicle’s internal state**, such as position, speed, and **detected objects**, and makes this information available for use by external systems.
+- **External commands** to influence the vehicle’s behavior by **modifying the control stack**, ensuring that real-time data from external sources can be processed and acted upon.
 
-The VPI was developed and tested using the [Pixkit 2023.04](https://github.com/pixmoving-moveit/Autoware/tree/release/pixkit-2023.04) release of Autoware.
+This VPI was developed and tested using the [PIXKIT 2023.04](https://github.com/pixmoving-moveit/Autoware/tree/release/pixkit-2023.04) release of Autoware.
 
-If you find this code useful in your research, please consider citing :
+If you find this code useful in your research, please consider citing:
 
     @INPROCEEDINGS{11071413,
   		author={Amaral, João and Figueiredo, Andreia and Rito, Pedro and Sargento, Susana},
