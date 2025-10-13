@@ -105,14 +105,15 @@ debug=0
 reference_latitude=0.0				; autoware map reference latitude
 reference_longitude=0.0				; autoware map reference longitude
 ignore_unknown_objects=true		    ; don't publish objects with unknown classification
+mqtt_host=127.0.0.1                 ; mqtt host to publish messages
 ```
 
  - For the [braking-service], the configuration is the following:
 ```
 [braking-service]
 dds_domain_id=0
-save_time_logs=true			; enable log writing
 debug=1
+mqtt_host=127.0.0.1                 ; mqtt host to publish messages
 ```
 
  5. Launch the VPI:
