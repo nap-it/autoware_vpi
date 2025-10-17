@@ -1,7 +1,11 @@
 # Overview
+A main problem that exists in autonomous driving is how to integrate V2X communications with the vehicle autonomous control, Autoware. This is difficult because of the different nature of each approach, one through brokers for the V2X messaging, such as MQTT, DDS, and Zenoh, and the other through ROS for the autonomous control.
+
 This project implements a **Vehicle Programming Interface (VPI)** that connects Autoware's ROS topics to external systems such as MQTT, DDS, and Zenoh, enabling seamless data exchange and V2X messaging without requiring deep knowledge of Autoware's internal stack.
 
 VPIs are designed to manage various aspects of vehicle hardware, data, computation, services, and system management for autonomous vehicles. They were first introduced in Wu BF, Zhong R, Wang Y, et al. VPI: Vehicle Programming Interface for Vehicle Computing. Journal of Computer Science and Technology 39(1): 22–44, Jan. 2024. DOI: https://10.1007/s11390-024-4035-2.
+
+This work has been published in João Amaral, Andreia Figueiredo, Pedro Rito, Susana Sargento, Cooperative V2X Communications and Sensing for Autonomous Mobility, 2025 IEEE 3rd International Conference on Mobility, Operations, Services and Technologies (MOST), Delaware (USA), May 2025. DOI: https://10.1109/MOST65065.2025.00033.
 
 This VPI enables:
 - Gathering detailed status updates on the **vehicle’s internal state**, such as position, speed, and **detected objects**, and makes this information available for use by external systems.
@@ -31,8 +35,12 @@ This module is designed to process information about the vehicle’s pose, inclu
 ###### Objects Converter
 This module is responsible for converting the data produced by the vehicle’s **perception systems** into a standardized format that can be shared with **external systems** .<br />
 
+[![PIXKIT + V2X Collective Perception](https://img.youtube.com/vi/puLR2LU472M/0.jpg)](https://www.youtube.com/watch?v=puLR2LU472M)
+
 ###### Braking Service
 The Braking Service module is a specialized addition to the VPI, designed to **interface** with the **emergency braking functionality** of the Autoware framework. It works by processing incoming braking messages from **MQTT** and **DDS** domains and calling the **internal Autoware emergency braking service** based on the provided input.<br />
+
+[![PIXKIT + V2X Emergency Braking](https://img.youtube.com/vi/zbTc_y0SD8g/0.jpg)](https://www.youtube.com/watch?v=zbTc_y0SD8g)
 
 # Deployment
 1. Create a new directory:
