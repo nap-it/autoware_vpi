@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     git \
+    ros-humble-geographic-msgs \
     libgeographic-dev \
     geographiclib-tools \
     libboost-date-time-dev \
@@ -17,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     ca-certificates \
     ros-humble-rmw-cyclonedds-cpp \
-    ros-humble-geographic-msgs \
     && rm -rf /var/lib/apt/lists/*
 
 # --------- Build MQTT Libraries ---------
@@ -82,6 +82,7 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build --merge-inst
 WORKDIR /
 RUN git clone https://github.com/tier4/autoware_msgs.git
 WORKDIR /autoware_msgs
+RUN git checkout bbafc6c4410222de45df2d73e66678f80b1e28d4
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build --merge-install \
         --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS='-w'"
 
@@ -106,10 +107,23 @@ RUN cp -r /fastdds-cpp-wrapper /objects-converter/include/fastdds-cpp-wrapper &&
     cp -r /rapidjson/include/rapidjson /objects-converter/include/rapidjson && \
     cp -r /spdlog /objects-converter/include/spdlog && \
     cp -r /paho-mqtt-cpp-wrapper /objects-converter/include/paho-mqtt-cpp-wrapper && \
-    cp -r /autoware_auto_msgs /objects-converter/include/autoware_auto_msgs
+    cp -r /autoware_msgs /objects-converter/include/autoware_msgs
 
 WORKDIR /objects-converter
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash && source /objects-converter/include/autoware_auto_msgs/install/setup.bash && colcon build"
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && source /autoware_msgs/install/setup.bash && colcon build"
+
+# --------- Build V2X Converter ---------
+WORKDIR /
+RUN mkdir /v2x-converter
+COPY modules/v2x-converter/ /v2x-converter/
+RUN cp -r /fastdds-cpp-wrapper /v2x-converter/include/fastdds-cpp-wrapper && \
+    cp -r /rapidjson/include/rapidjson /v2x-converter/include/rapidjson && \
+    cp -r /spdlog /v2x-converter/include/spdlog && \
+    cp -r /paho-mqtt-cpp-wrapper /v2x-converter/include/paho-mqtt-cpp-wrapper && \
+    cp -r /autoware_msgs /v2x-converter/include/autoware_msgs
+
+WORKDIR /v2x-converter
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && source /autoware_msgs/install/setup.bash && colcon build"
 
 # --------- Build Braking Service ---------
 WORKDIR /
@@ -142,7 +156,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=builder /pose-converter /pose-converter
 COPY --from=builder /objects-converter /objects-converter
+COPY --from=builder /cpm-converter /cpm-converter
 COPY --from=builder /braking-service /braking-service
+
+COPY --from=builder /autoware_msgs/install /autoware_msgs/install
 
 COPY --from=builder /usr/local/lib/libpaho-mqtt3*.so* /usr/local/lib/
 COPY --from=builder /usr/local/lib/libpaho-mqttpp3.so* /usr/local/lib/
@@ -150,4 +167,4 @@ COPY --from=builder /usr/local/lib/libpaho-mqttpp3.so* /usr/local/lib/
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
 ENV ROS_DOMAIN_ID=0
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-RUN echo "source /opt/ros/humbl e/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc

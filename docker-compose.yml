@@ -8,9 +8,16 @@ services:
     volumes:
       - ./config.ini:/pose-converter/config.ini
       - ./config.ini:/objects-converter/config.ini
+      - ./config.ini:/v2x-converter/config.ini
       - ./config.ini:/braking-service/config.ini
       - ./start_all.sh:/start_all.sh
+      - /home/autoware/cyclonedds.xml:/etc/cyclonedds.xml # Modify this line with your CycloneDDS config
     network_mode: host
     ipc: host
+    environment:
+          - ROS_DOMAIN_ID=0
+          - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+          - CYCLONEDDS_URI=file:///etc/cyclonedds.xml
+          - ROS_USE_SIM_TIME=true
     command: ["/bin/bash", "-c" , "/start_all.sh"]
     tty: true
