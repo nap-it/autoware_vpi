@@ -9,6 +9,7 @@ services:
       - ./config.ini:/pose-converter/config.ini
       - ./config.ini:/objects-converter/config.ini
       - ./config.ini:/braking-service/config.ini
+      - ./config.ini:/lane-changer/config.ini
       - ./start_all.sh:/start_all.sh
     network_mode: host
     ipc: host

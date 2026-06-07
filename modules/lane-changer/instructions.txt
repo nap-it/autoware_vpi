@@ -1,0 +1,12 @@
+Path to file to remap:
+/home/pixkit/pix/pixkit/Autoware/src/universe/autoware.universe/planning/behavior_path_planner/launch/behavior_path_planner.launch.xml
+
+Topic remapped:
+/planning/mission_planning/route
+
+Message type:
+autoware_planning_msgs/LaneletRoute
+ros2 topic pub /planning/mission_planning/route_remap autoware_planning_msgs/msg/LaneletRoute {message}
+
+"{header: {stamp: {sec: 1743769658, nanosec: 587550525}, frame_id: 'map'}, start_pose: {position: {x: -31.202239990234375, y: 14.778005599975586, z: -2.0335638427200404}, orientation: {x: 0.0, y: 0.0, z: -0.3745651759599104, w: 0.927200587229172}} ,goal_pose: {position: {x: 59.662086486816406, y: 48.78612518310547, z: -0.9805324850331276}, orientation: {x: 0.0, y: 0.0, z: 0.31172809850606054, w: 0.9501713490743634}}, segments: [{preferred_primitive: {id: 754, primitive_type: ''}, primitives: [{id: 809, primitive_type: 'lane'}, {id: 754, primitive_type: 'lane'}]}, {preferred_primitive: {id: 868, primitive_type: ''}, primitives: [{id: 816, primitive_type: 'lane'}, {id: 868, primitive_type: 'lane'}]}, {preferred_primitive: {id: 945, primitive_type: ''}, primitives: [{id: 875, primitive_type: 'lane'}, {id: 945, primitive_type: 'lane'}]}, {preferred_primitive: {id: 977, primitive_type: ''}, primitives: [{id: 952, primitive_type: 'lane'}, {id: 977, primitive_type: 'lane'}]}], uuid: {uuid: [156, 165, 245, 162, 15, 156, 89, 19, 69, 169, 194, 74, 65, 16, 13, 20]}, allow_modification: false}"
+"{header: {stamp: {sec: 1743769658, nanosec: 587550525}, frame_id: 'map'}, start_pose: {position: {x: -31.202239990234375, y: 14.778005599975586, z: -2.0335638427200404}, orientation: {x: 0.0, y: 0.0, z: -0.3745651759599104, w: 0.927200587229172}} ,goal_pose: {position: {x: 59.662086486816406, y: 48.78612518310547, z: -0.9805324850331276}, orientation: {x: 0.0, y: 0.0, z: 0.31172809850606054, w: 0.9501713490743634}}, segments: [{preferred_primitive: {id: 754, primitive_type: ''}, primitives: [{id: 809, primitive_type: 'lane'}, {id: 754, primitive_type: 'lane'}]}, {preferred_primitive: {id: 868, primitive_type: ''}, primitives: [{id: 816, primitive_type: 'lane'}, {id: 868, primitive_type: 'lane'}]}, {preferred_primitive: {id: 875, primitive_type: ''}, primitives: [{id: 875, primitive_type: 'lane'}, {id: 945, primitive_type: 'lane'}]}, {preferred_primitive: {id: 952, primitive_type: ''}, primitives: [{id: 952, primitive_type: 'lane'}, {id: 977, primitive_type: 'lane'}]}], uuid: {uuid: [156, 165, 245, 162, 15, 156, 89, 19, 69, 169, 194, 74, 65, 16, 13, 20]}, allow_modification: false}"

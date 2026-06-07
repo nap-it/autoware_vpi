@@ -130,6 +130,21 @@ WORKDIR /braking-service
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && source /braking-service/include/tier4_external_api_msgs/install/setup.bash && colcon build"
 
 
+# --------- Build Lane Changer ---------
+WORKDIR /
+RUN mkdir /lane-changer
+COPY modules/lane-changer/ /lane-changer/
+WORKDIR /lane-changer
+RUN cp -r /autoware_auto_msgs /lane-changer/autoware_auto_msgs && \
+    cp -r /autoware_msgs /lane-changer/autoware_msgs
+
+WORKDIR /lane-changer
+RUN cp -r /spdlog /lane-changer/include/spdlog
+RUN cp -r /fastdds-cpp-wrapper /lane-changer/include/fastdds-cpp-wrapper
+RUN cp -r /rapidjson/include/rapidjson /lane-changer/include/rapidjson
+RUN cp -r /paho-mqtt-cpp-wrapper /lane-changer/include/paho-mqtt-cpp-wrapper
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && source /lane-changer/autoware_auto_msgs/install/setup.bash && source /lane-changer/autoware_msgs/install/setup.bash && colcon build"
+
 # ===== Runner Stage =====
 FROM ros:humble-ros-base-jammy AS runner
 
@@ -143,6 +158,9 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /pose-converter /pose-converter
 COPY --from=builder /objects-converter /objects-converter
 COPY --from=builder /braking-service /braking-service
+COPY --from=builder /lane-changer /lane-changer
+COPY --from=builder /autoware_auto_msgs/install /autoware_auto_msgs/install
+COPY --from=builder /autoware_msgs/install /autoware_msgs/install
 
 COPY --from=builder /usr/local/lib/libpaho-mqtt3*.so* /usr/local/lib/
 COPY --from=builder /usr/local/lib/libpaho-mqttpp3.so* /usr/local/lib/
@@ -150,4 +168,4 @@ COPY --from=builder /usr/local/lib/libpaho-mqttpp3.so* /usr/local/lib/
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/local.conf && ldconfig
 ENV ROS_DOMAIN_ID=0
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-RUN echo "source /opt/ros/humbl e/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc

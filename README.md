@@ -42,6 +42,11 @@ The Braking Service module is a specialized addition to the VPI, designed to **i
 
 [![PIXKIT + V2X Emergency Braking](https://img.youtube.com/vi/zbTc_y0SD8g/0.jpg)](https://www.youtube.com/watch?v=zbTc_y0SD8g)
 
+###### Lane Changer
+The Lane Changer provides direct external influence over Autoware's motion planning, enabling the integration of cooperative maneuvering solutions with Autoware's autonomous driving capabilities. It supports two operational modes: **pre-planned overtaking maneuvers** and **single lane changes**. A pre-planned overtaking maneuver is triggered through dedicated **MQTT** or **DDS** messages containing the positional information of the desired overtaking location, allowing the vehicle to execute the maneuver at a predefined point. In contrast, a single lane change command initiates a lane change as soon as possible, without requiring additional positioning data.<br />
+
+[![PIXKIT + MCS](https://img.youtube.com/vi/luE-kF-ow1g/0.jpg)](https://www.youtube.com/watch?v=luE-kF-ow1g)
+
 # Deployment
 This VPI is deployed through a Docker container that contains all the necessary dependencies and configurations to run the VPI modules. Follow the steps below to deploy the VPI:
 1. Clone the repository:
@@ -108,6 +113,17 @@ debug=0
 mqtt_host=127.0.0.1                 ; mqtt host to subcribe to messages
 ```
 
+- For the [lane-changer]:
+```
+[lane-changer]
+dds_domain_id=0
+debug=0
+mqtt_host=127.0.0.1               ; mqtt host to subscribe to messages
+reference_latitude=0.0            ; autoware map origin latitude
+reference_longitude=0.0           ; autoware map origin longitude
+distance_to_start=3.0             ; proximity threshold (meters) to trigger each overtake point
+```
+
 
 # How to interact with the VPI
 
@@ -170,6 +186,19 @@ For example, run the following command in the terminal to engage the emergency b
 ```
 mosquitto_pub -t 'aw/in/brake' -m '{"brake":true}'
 ```
+
+- To send a single lane change request to Autoware, publish the following JSON message to the DDS or MQTT topic ***aw/in/lane_change/direct***:
+```
+{
+  "action": "change"
+}
+```
+For example, run the following command in the terminal to send a single lane change request while Autoware and the VPI are running:
+```
+mosquitto_pub -t 'aw/in/lane_change/direct' -m '{"action": "change"}'
+```
+
+For cooperative overtake mode and the full message reference, see the [lane-changer module README](modules/lane-changer/README.md).
 
 ## Acknowledgements
 We thank [I2CAT](https://i2cat.net) for their valuable feedback and contributions to the development and documentation of this VPI.

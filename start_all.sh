@@ -18,5 +18,11 @@ source /braking-service/include/tier4_external_api_msgs/install/setup.bash
 source /braking-service/install/setup.bash
 ros2 run braking_service braking_service_node &
 
+# -- Lane Changer --
+source /lane-changer/autoware_auto_msgs/install/setup.bash
+source /lane-changer/autoware_msgs/install/setup.bash
+source /lane-changer/install/setup.bash
+ros2 run lane_changer lane_changer_node &
+
 # Wait for all background processes to complete
 wait
